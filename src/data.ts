@@ -7,7 +7,7 @@ export const profile = {
   location: "Sri Lanka",
   email: "lakshanbuddhika@outlook.com",
   github: "https://github.com/lakshanbp",
-  linkedin: "https://www.linkedin.com/in/lakshan-perera-62b53b214",
+  linkedin: "https://www.linkedin.com/in/lakshan-b-perera",
 };
 
 export const skills = [

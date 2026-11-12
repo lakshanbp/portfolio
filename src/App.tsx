@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type PointerEvent } from "react";
 import { ArrowUpRight, Github, Linkedin, Mail, Menu, X } from "lucide-react";
 import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from "framer-motion";
 import Scene3D from "./three/Scene3D";
@@ -40,6 +40,18 @@ function SectionHeading({ eyebrow, title, description }: { eyebrow: string; titl
   </div>;
 }
 
+function updatePointerGlow(event: PointerEvent<HTMLElement>) {
+  if (event.pointerType !== "mouse") return;
+  const bounds = event.currentTarget.getBoundingClientRect();
+  event.currentTarget.style.setProperty("--pointer-x", `${event.clientX - bounds.left}px`);
+  event.currentTarget.style.setProperty("--pointer-y", `${event.clientY - bounds.top}px`);
+  event.currentTarget.style.setProperty("--pointer-opacity", "1");
+}
+
+function clearPointerGlow(event: PointerEvent<HTMLElement>) {
+  event.currentTarget.style.setProperty("--pointer-opacity", "0");
+}
+
 function Hero() {
   const reduceMotion = useReducedMotion();
   return <section className="hero section-wrap" id="home">
@@ -69,7 +81,8 @@ function Hero() {
 }
 
 function About() {
-  return <section className="section-wrap content-section" id="about">
+  return <section className="section-wrap content-section interactive-section" id="about" onPointerMove={updatePointerGlow} onPointerLeave={clearPointerGlow}>
+    <div className="pointer-glow" aria-hidden="true" />
     <SectionHeading eyebrow="01 / ABOUT" title="A little about me." description="Curious by nature. Developer by choice." />
     <div className="about-grid">
       <div className="about-main">
@@ -86,7 +99,8 @@ function About() {
 }
 
 function Skills() {
-  return <section className="section-wrap content-section" id="skills">
+  return <section className="section-wrap content-section interactive-section" id="skills" onPointerMove={updatePointerGlow} onPointerLeave={clearPointerGlow}>
+    <div className="pointer-glow" aria-hidden="true" />
     <SectionHeading eyebrow="02 / TOOLKIT" title="Technologies I work with." description="A growing toolkit for building across the stack." />
     <div className="skills-grid">
       {skills.map((group, i) => <motion.div className="skill-card" key={group.group} whileHover={{ y: -5 }} transition={{ duration: 0.2 }}>
@@ -99,8 +113,9 @@ function Skills() {
 }
 
 function Projects() {
-  return <section className="section-wrap content-section" id="projects">
-    <SectionHeading eyebrow="03 / SELECTED WORK" title="Things I've been building." description="A selection of projects and learning experiences. Replace the sample links with your repository URLs." />
+  return <section className="section-wrap content-section interactive-section" id="projects" onPointerMove={updatePointerGlow} onPointerLeave={clearPointerGlow}>
+    <div className="pointer-glow" aria-hidden="true" />
+    <SectionHeading eyebrow="03 / SELECTED WORK" title="Things I've been building." description="A selection of projects and learning experiences." />
     <div className="projects-list">
       {projects.map(project => <article className="project-card" key={project.number}>
         <div className="project-number">{project.number}</div>
@@ -144,11 +159,14 @@ function Contact() {
   return <motion.section
     className="section-wrap contact-section"
     id="contact"
+    onPointerMove={updatePointerGlow}
+    onPointerLeave={clearPointerGlow}
     variants={contactVariants}
     initial="hidden"
     whileInView="visible"
     viewport={{ once: true, amount: 0.1 }}
   >
+    <div className="pointer-glow" aria-hidden="true" />
     <motion.p className="eyebrow" variants={itemVariants}>04 / CONTACT</motion.p>
     <motion.h2 variants={itemVariants}>Have a project<br />in <span>mind?</span></motion.h2>
     <motion.p className="muted-copy" variants={itemVariants}>I'm interested in opportunities to learn, collaborate and build meaningful products.</motion.p>
@@ -172,7 +190,7 @@ function HelloPage() {
   const orbRotateX = useTransform(smoothY, [-1, 1], [8, -8]);
   const orbRotateY = useTransform(smoothX, [-1, 1], [-10, 10]);
 
-  function handlePointerMove(event: React.PointerEvent<HTMLElement>) {
+  function handlePointerMove(event: PointerEvent<HTMLElement>) {
     if (reduceMotion || event.pointerType !== "mouse") return;
     const bounds = event.currentTarget.getBoundingClientRect();
     pointerX.set(((event.clientX - bounds.left) / bounds.width) * 2 - 1);

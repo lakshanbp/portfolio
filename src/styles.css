@@ -46,3 +46,31 @@
 .content-section#projects>.section-heading,.content-section#projects>.projects-list{position:relative;z-index:1}
 @media(max-width:650px){.content-section#projects::before{background-image:linear-gradient(90deg,rgba(9,10,15,.8),rgba(9,10,15,.62)),linear-gradient(0deg,#090a0f 0%,rgba(9,10,15,.2) 28%,rgba(9,10,15,.3) 100%),url("/selected-work-background.jpg");background-position:center,center,center;background-size:cover;background-repeat:no-repeat;opacity:.7}}
 @media(prefers-reduced-motion:reduce){.content-section#projects::after{animation:none;left:34%;opacity:.7}}
+.pointer-glow{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:var(--pointer-opacity,0);background:radial-gradient(460px circle at var(--pointer-x,50%) var(--pointer-y,50%),rgba(130,148,255,.15),rgba(109,126,230,.055) 38%,transparent 72%);transition:opacity .35s ease}
+.contact-section>.pointer-glow{z-index:0}
+.contact-section>*:not(.pointer-glow){position:relative;z-index:1}
+.skill-card{transition:border-color .25s,background .25s,box-shadow .25s}
+.skill-card:hover{border-color:rgba(170,183,255,.38);background:linear-gradient(145deg,rgba(142,159,255,.11),rgba(255,255,255,.025));box-shadow:0 12px 35px rgba(0,0,0,.2),0 0 24px rgba(107,128,255,.08)}
+.about-facts>div{transition:background .25s,padding .25s,border-color .25s}
+.about-facts>div:hover{padding-left:9px;border-color:rgba(170,183,255,.4);background:linear-gradient(90deg,rgba(142,159,255,.09),transparent)}
+.project-card{transition:background .25s,border-color .25s,transform .25s}
+.project-card:hover{transform:translateX(5px);border-color:rgba(170,183,255,.32)}
+.contact-button:hover{box-shadow:0 0 30px rgba(142,159,255,.3)}
+.skill-card:active,.about-facts>div:active,.project-card:active{background:rgba(170,183,255,.2);border-color:#aab7ff;box-shadow:0 0 26px rgba(170,183,255,.18);transform:scale(.99)}
+.project-links a:active,.contact-links a:active,.hero-socials a:active{color:#aab7ff}
+.project-links a:active{background:#aab7ff;color:#101321}
+.button:active{background:#c0caff;box-shadow:0 0 28px rgba(170,183,255,.4)}
+.skill-card:focus-visible,.project-card:focus-visible,.about-facts>div:focus-visible,.project-links a:focus-visible,.contact-links a:focus-visible,.hero-socials a:focus-visible,.button:focus-visible{outline:2px solid #aab7ff;outline-offset:4px}
+@media(prefers-reduced-motion:reduce){.pointer-glow{transition:none}.about-facts>div,.project-card{transition:none}.project-card:hover{transform:none}}
+.nav>a:not(.nav-cta){position:relative;transition:color .2s,text-shadow .2s}
+.nav>a:not(.nav-cta)::after{content:"";position:absolute;left:0;right:0;bottom:-7px;height:1px;background:linear-gradient(90deg,transparent,#aab7ff,transparent);transform:scaleX(0);transform-origin:center;transition:transform .28s ease}
+.nav>a:not(.nav-cta):hover,.nav>a:not(.nav-cta):focus-visible{color:#aab7ff;text-shadow:0 0 14px rgba(170,183,255,.45)}
+.nav>a:not(.nav-cta):hover::after,.nav>a:not(.nav-cta):focus-visible::after{transform:scaleX(1)}
+@media(prefers-reduced-motion:reduce){.nav>a:not(.nav-cta),.nav>a:not(.nav-cta)::after{transition:none}}
+.contact-section::after{content:"";position:absolute;z-index:2;top:0;right:-32%;width:32%;height:1px;pointer-events:none;background:linear-gradient(90deg,transparent,rgba(220,225,255,.9),#fff,rgba(220,225,255,.9),transparent);filter:drop-shadow(0 0 5px rgba(220,225,255,.75));animation:contact-border-shine 5s ease-in-out infinite}
+@keyframes contact-border-shine{0%{right:-32%;opacity:0}12%{opacity:1}78%{opacity:1}100%{right:100%;opacity:0}}
+@media(prefers-reduced-motion:reduce){.contact-section::after{animation:none;right:34%;opacity:.7}}
+.footer{position:relative}
+.footer::before{content:"";position:absolute;top:0;left:-32%;width:32%;height:1px;pointer-events:none;background:linear-gradient(90deg,transparent,rgba(220,225,255,.9),#fff,rgba(220,225,255,.9),transparent);filter:drop-shadow(0 0 5px rgba(220,225,255,.75));animation:footer-border-shine 5s ease-in-out infinite}
+@keyframes footer-border-shine{0%{left:-32%;opacity:0}12%{opacity:1}78%{opacity:1}100%{left:100%;opacity:0}}
+@media(prefers-reduced-motion:reduce){.footer::before{animation:none;left:34%;opacity:.7}}
